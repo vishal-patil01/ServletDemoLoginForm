@@ -1,10 +1,13 @@
+# IntelliJ #
 .idea/
 *.iml
 *.iws
 *.class
+# Package Files #
 *.jar
 *.war
 *.ear
+### Maven ###
 log/
 target/
 pom.xml.tag
