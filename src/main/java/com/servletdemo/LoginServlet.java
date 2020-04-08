@@ -15,18 +15,18 @@ import java.io.PrintWriter;
         urlPatterns = {"/LoginServlet"},
         initParams = {
                 @WebInitParam(name = "userNamePattern", value = "^[A-Z][a-z]{2,}$"),
-                @WebInitParam(name = "password", value = "123")
+                @WebInitParam(name = "passwordPattern", value = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=[^$@!#%*?&]*[$#@!%*?&][^$@!#%*?&]*$).{8,}")
         }
 )
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userName=request.getParameter("userName");
-        String pwd=request.getParameter("password");
+        String password=request.getParameter("password");
 
         String validUserName=getServletConfig().getInitParameter("userNamePattern");
-        String password=getServletConfig().getInitParameter("password");
-        if (userName.matches(validUserName) && password.equals(pwd)){
+        String validPassword=getServletConfig().getInitParameter("passwordPattern");
+        if (userName.matches(validUserName) && password.matches(validPassword)){
             request.setAttribute("userName",userName);
             request.getRequestDispatcher("/LoginSuccess.jsp").forward(request,response);
         }
